@@ -71,7 +71,21 @@ class DBManager: NSObject {
         }
         return (false, nil)
     }
+    
+    func addExercise(exercise: ExerciseModel) -> Bool {
+        guard let entity = NSEntityDescription.entity(forEntityName: "ExerciseLibrary", in: managedContext) else {
+            print("Failed to create entity description for ExerciseLibrary")
+            return false
+        }
+        
+        let newExercise = NSManagedObject(entity: entity, insertInto: managedContext)
+        newExercise.setValue(exercise.exerciseName, forKey: "exerciseName")
+        newExercise.setValue(exercise.exerciseDescription, forKey: "exerciseDescription")
+        newExercise.setValue(exercise.mediaPath, forKey: "mediaPath")
+        newExercise.setValue(exercise.muscleGroup, forKey: "muscleGroup")
+        newExercise.setValue(exercise.ownerUsername, forKey: "ownerUsername")
+        
+        return saveData()
+    }
 
-
-  
 }

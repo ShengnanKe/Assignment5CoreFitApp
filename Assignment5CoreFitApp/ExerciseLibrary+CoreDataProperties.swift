@@ -16,13 +16,13 @@ extension ExerciseLibrary {
         return NSFetchRequest<ExerciseLibrary>(entityName: "ExerciseLibrary")
     }
 
-    @NSManaged public var ownerUsername: String?
     @NSManaged public var exerciseDescription: String?
     @NSManaged public var exerciseName: String?
     @NSManaged public var mediaPath: String?
     @NSManaged public var muscleGroup: String?
-    @NSManaged public var createdByUser: User?
+    @NSManaged public var ownerUsername: String?
     @NSManaged public var belongsToWorkoutPlans: NSSet?
+    @NSManaged public var createdByUser: User?
 
 }
 

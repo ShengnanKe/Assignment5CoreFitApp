@@ -8,6 +8,7 @@
 import UIKit
 
 class AdminExerciseCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var exerciseNameLabel: UILabel!
     @IBOutlet weak var muscleGroupLabel: UILabel!
     

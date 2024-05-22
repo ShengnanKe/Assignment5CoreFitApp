@@ -29,23 +29,16 @@ class LoginViewController: UIViewController {
             showAlert(message: "Please enter both username and password.")
             return
         }
-        
+
         let loginResult = DBManager.shared.loginUser(username: username, password: password)
         if loginResult.success, let user = loginResult.user {
             self.currentUser = user
-        
-            navigateToNextScreen(user: user)
             print("Login successful for user: \(user.username ?? "Unknown")")
+
+            let segueIdentifier = user.isAdmin ? "showAdminExerciseList" : "showUserExerciseList"
+            performSegue(withIdentifier: segueIdentifier, sender: self)  // Pass 'self' as sender
         } else {
             showAlert(message: "Invalid username or password.")
-        }
-    }
-    
-    func navigateToNextScreen(user: User) {
-        if user.isAdmin {
-            performSegue(withIdentifier: "AdminExerciseListViewController", sender: nil)
-        } else {
-            performSegue(withIdentifier: "UserExerciseListViewController", sender: nil)
         }
     }
     
@@ -54,4 +47,15 @@ class LoginViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertController, animated: true, completion: nil)
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showUserExerciseList",
+           let destinationVC = segue.destination as? UserAddExerciseViewController {
+            destinationVC.currentUser = self.currentUser
+        } else if segue.identifier == "showAdminExerciseList",
+                  let destinationVC = segue.destination as? AdminExerciseListViewController {
+            destinationVC.currentUser = self.currentUser
+        }
+    }
+
 }
