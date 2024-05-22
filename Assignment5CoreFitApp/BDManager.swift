@@ -12,17 +12,19 @@ import UIKit
 class DBManager: NSObject {
     
     // -> Singleton instance
+    var managedContext: NSManagedObjectContext!
+    
     static let shared: DBManager = {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let container = appDelegate.persistentContainer
-        return DBManager(context: container.viewContext)
+        let instance = DBManager()
+        return instance
     }()
     
-    var managedContext: NSManagedObjectContext
-    
-    init(context: NSManagedObjectContext) {
-        self.managedContext = context
+    private override init() {
         super.init()
+        let application = UIApplication.shared
+        let appDelegate = application.delegate as? AppDelegate
+        let container = appDelegate?.persistentContainer
+        self.managedContext = container?.viewContext
     }
     
     func saveData() -> Bool {
