@@ -14,6 +14,21 @@
 		44C0A04D2BFD6EE2006C0734 /* Assignment5CoreFitApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A04B2BFD6EE2006C0734 /* Assignment5CoreFitApp.xcdatamodeld */; };
 		44C0A04F2BFD6EE4006C0734 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44C0A04E2BFD6EE4006C0734 /* Assets.xcassets */; };
 		44C0A0522BFD6EE4006C0734 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 44C0A0512BFD6EE4006C0734 /* Base */; };
+		44C0A05A2BFD7095006C0734 /* BDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0592BFD7095006C0734 /* BDManager.swift */; };
+		44C0A05C2BFD70D3006C0734 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A05B2BFD70D3006C0734 /* UserModel.swift */; };
+		44C0A05E2BFD70F6006C0734 /* ExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A05D2BFD70F6006C0734 /* ExerciseModel.swift */; };
+		44C0A0602BFD718C006C0734 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A05F2BFD718C006C0734 /* RegistrationViewController.swift */; };
+		44C0A0672BFD71EB006C0734 /* ExerciseLibrary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0612BFD71EB006C0734 /* ExerciseLibrary+CoreDataClass.swift */; };
+		44C0A0682BFD71EB006C0734 /* ExerciseLibrary+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0622BFD71EB006C0734 /* ExerciseLibrary+CoreDataProperties.swift */; };
+		44C0A0692BFD71EB006C0734 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0632BFD71EB006C0734 /* User+CoreDataClass.swift */; };
+		44C0A06A2BFD71EB006C0734 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0642BFD71EB006C0734 /* User+CoreDataProperties.swift */; };
+		44C0A06B2BFD71EB006C0734 /* WorkoutPlan+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0652BFD71EB006C0734 /* WorkoutPlan+CoreDataClass.swift */; };
+		44C0A06C2BFD71EB006C0734 /* WorkoutPlan+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0662BFD71EB006C0734 /* WorkoutPlan+CoreDataProperties.swift */; };
+		44C0A06E2BFD74E1006C0734 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A06D2BFD74E1006C0734 /* LoginViewController.swift */; };
+		44C0A0702BFD7D53006C0734 /* AdminExerciseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A06F2BFD7D53006C0734 /* AdminExerciseListViewController.swift */; };
+		44C0A0722BFD7D64006C0734 /* UserExerciseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0712BFD7D64006C0734 /* UserExerciseListViewController.swift */; };
+		44C0A0742BFD80D4006C0734 /* AdminExerciseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0732BFD80D4006C0734 /* AdminExerciseCollectionViewCell.swift */; };
+		44C0A0762BFD80E6006C0734 /* UserExerciseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0A0752BFD80E6006C0734 /* UserExerciseCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +41,21 @@
 		44C0A04E2BFD6EE4006C0734 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44C0A0512BFD6EE4006C0734 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44C0A0532BFD6EE4006C0734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44C0A0592BFD7095006C0734 /* BDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BDManager.swift; sourceTree = "<group>"; };
+		44C0A05B2BFD70D3006C0734 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		44C0A05D2BFD70F6006C0734 /* ExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseModel.swift; sourceTree = "<group>"; };
+		44C0A05F2BFD718C006C0734 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		44C0A0612BFD71EB006C0734 /* ExerciseLibrary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseLibrary+CoreDataClass.swift"; sourceTree = "<group>"; };
+		44C0A0622BFD71EB006C0734 /* ExerciseLibrary+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseLibrary+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		44C0A0632BFD71EB006C0734 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		44C0A0642BFD71EB006C0734 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		44C0A0652BFD71EB006C0734 /* WorkoutPlan+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutPlan+CoreDataClass.swift"; sourceTree = "<group>"; };
+		44C0A0662BFD71EB006C0734 /* WorkoutPlan+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutPlan+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		44C0A06D2BFD74E1006C0734 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		44C0A06F2BFD7D53006C0734 /* AdminExerciseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminExerciseListViewController.swift; sourceTree = "<group>"; };
+		44C0A0712BFD7D64006C0734 /* UserExerciseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserExerciseListViewController.swift; sourceTree = "<group>"; };
+		44C0A0732BFD80D4006C0734 /* AdminExerciseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminExerciseCollectionViewCell.swift; sourceTree = "<group>"; };
+		44C0A0752BFD80E6006C0734 /* UserExerciseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserExerciseCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +88,12 @@
 		44C0A0412BFD6EE2006C0734 /* Assignment5CoreFitApp */ = {
 			isa = PBXGroup;
 			children = (
+				44C0A0612BFD71EB006C0734 /* ExerciseLibrary+CoreDataClass.swift */,
+				44C0A0622BFD71EB006C0734 /* ExerciseLibrary+CoreDataProperties.swift */,
+				44C0A0632BFD71EB006C0734 /* User+CoreDataClass.swift */,
+				44C0A0642BFD71EB006C0734 /* User+CoreDataProperties.swift */,
+				44C0A0652BFD71EB006C0734 /* WorkoutPlan+CoreDataClass.swift */,
+				44C0A0662BFD71EB006C0734 /* WorkoutPlan+CoreDataProperties.swift */,
 				44C0A0422BFD6EE2006C0734 /* AppDelegate.swift */,
 				44C0A0442BFD6EE2006C0734 /* SceneDelegate.swift */,
 				44C0A0462BFD6EE2006C0734 /* ViewController.swift */,
@@ -66,6 +102,15 @@
 				44C0A0502BFD6EE4006C0734 /* LaunchScreen.storyboard */,
 				44C0A0532BFD6EE4006C0734 /* Info.plist */,
 				44C0A04B2BFD6EE2006C0734 /* Assignment5CoreFitApp.xcdatamodeld */,
+				44C0A0592BFD7095006C0734 /* BDManager.swift */,
+				44C0A05B2BFD70D3006C0734 /* UserModel.swift */,
+				44C0A05D2BFD70F6006C0734 /* ExerciseModel.swift */,
+				44C0A05F2BFD718C006C0734 /* RegistrationViewController.swift */,
+				44C0A06D2BFD74E1006C0734 /* LoginViewController.swift */,
+				44C0A06F2BFD7D53006C0734 /* AdminExerciseListViewController.swift */,
+				44C0A0732BFD80D4006C0734 /* AdminExerciseCollectionViewCell.swift */,
+				44C0A0712BFD7D64006C0734 /* UserExerciseListViewController.swift */,
+				44C0A0752BFD80E6006C0734 /* UserExerciseCollectionViewCell.swift */,
 			);
 			path = Assignment5CoreFitApp;
 			sourceTree = "<group>";
@@ -142,8 +187,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				44C0A0472BFD6EE2006C0734 /* ViewController.swift in Sources */,
+				44C0A05A2BFD7095006C0734 /* BDManager.swift in Sources */,
+				44C0A0742BFD80D4006C0734 /* AdminExerciseCollectionViewCell.swift in Sources */,
+				44C0A0602BFD718C006C0734 /* RegistrationViewController.swift in Sources */,
+				44C0A0722BFD7D64006C0734 /* UserExerciseListViewController.swift in Sources */,
+				44C0A0762BFD80E6006C0734 /* UserExerciseCollectionViewCell.swift in Sources */,
+				44C0A06E2BFD74E1006C0734 /* LoginViewController.swift in Sources */,
 				44C0A04D2BFD6EE2006C0734 /* Assignment5CoreFitApp.xcdatamodeld in Sources */,
 				44C0A0432BFD6EE2006C0734 /* AppDelegate.swift in Sources */,
+				44C0A05E2BFD70F6006C0734 /* ExerciseModel.swift in Sources */,
+				44C0A0672BFD71EB006C0734 /* ExerciseLibrary+CoreDataClass.swift in Sources */,
+				44C0A0682BFD71EB006C0734 /* ExerciseLibrary+CoreDataProperties.swift in Sources */,
+				44C0A0692BFD71EB006C0734 /* User+CoreDataClass.swift in Sources */,
+				44C0A06A2BFD71EB006C0734 /* User+CoreDataProperties.swift in Sources */,
+				44C0A06B2BFD71EB006C0734 /* WorkoutPlan+CoreDataClass.swift in Sources */,
+				44C0A0702BFD7D53006C0734 /* AdminExerciseListViewController.swift in Sources */,
+				44C0A06C2BFD71EB006C0734 /* WorkoutPlan+CoreDataProperties.swift in Sources */,
+				44C0A05C2BFD70D3006C0734 /* UserModel.swift in Sources */,
 				44C0A0452BFD6EE2006C0734 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
