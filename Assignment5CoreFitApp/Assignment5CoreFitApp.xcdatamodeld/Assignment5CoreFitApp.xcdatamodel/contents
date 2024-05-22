@@ -5,7 +5,6 @@
         <attribute name="exerciseName" optional="YES" attributeType="String"/>
         <attribute name="mediaPath" optional="YES" attributeType="String"/>
         <attribute name="muscleGroup" optional="YES" attributeType="String"/>
-        <attribute name="ownerUsername" optional="YES" attributeType="String"/>
         <relationship name="belongsToWorkoutPlans" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkoutPlan" inverseName="hasExercises" inverseEntity="WorkoutPlan"/>
         <relationship name="createdByUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="createdExercises" inverseEntity="User"/>
     </entity>

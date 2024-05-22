@@ -1,8 +1,8 @@
 //
-//  BDManager.swift
+//  DBManager.swift
 //  Assignment5CoreFitApp
 //
-//  Created by KKNANXX on 5/21/24.
+//  Created by KKNANXX on 5/22/24.
 //
 
 import Foundation
@@ -10,7 +10,6 @@ import CoreData
 import UIKit
 
 class DBManager: NSObject {
-    
     // -> Singleton instance
     var managedContext: NSManagedObjectContext!
     
@@ -74,18 +73,37 @@ class DBManager: NSObject {
         return (false, nil)
     }
     
-    func addExercise(exercise: ExerciseModel) -> Bool {
+    func addExercise(exercise: ExerciseModel, user: User) -> Bool {
         guard let entity = NSEntityDescription.entity(forEntityName: "ExerciseLibrary", in: managedContext) else {
             print("Failed to create entity description for ExerciseLibrary")
             return false
         }
         
-        let newExercise = NSManagedObject(entity: entity, insertInto: managedContext)
+        let newExercise = NSManagedObject(entity: entity, insertInto: managedContext) as! ExerciseLibrary
         newExercise.setValue(exercise.exerciseName, forKey: "exerciseName")
         newExercise.setValue(exercise.exerciseDescription, forKey: "exerciseDescription")
         newExercise.setValue(exercise.mediaPath, forKey: "mediaPath")
         newExercise.setValue(exercise.muscleGroup, forKey: "muscleGroup")
-        newExercise.setValue(exercise.ownerUsername, forKey: "ownerUsername")
+      
+        user.addToCreatedExercises(newExercise)
+        
+        return saveData()
+    }
+    
+    func addWorkoutPlan(workoutPlan: WorkoutPlanModel, user: User, exercises: [Exercise])-> Bool{
+        guard let entity = NSEntityDescription.entity(forEntityName: "WorkoutPlan", in: managedContext) else {
+            print("Failed to create entity description for WorkoutPlan")
+            return false
+        }
+        
+        let newWorkoutPlan = NSManagedObject(entity: entity, insertInto: managedContext) as! WorkoutPlan
+        newWorkoutPlan.setValue(workoutPlan.name, forKey: "name")
+        
+        user.addToHasWorkoutPlans(newWorkoutPlan)
+        
+        for exercise in exercises {
+            newWorkoutPlan.addToHasExercises(exercise)
+        }
         
         return saveData()
     }

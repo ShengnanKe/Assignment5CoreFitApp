@@ -303,7 +303,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add Exercise"/>
                                 <connections>
-                                    <segue destination="tkp-KN-SNT" kind="show" id="L3D-qp-D7Y"/>
+                                    <action selector="addExerciseButtonTapped:" destination="84p-2P-cEa" eventType="touchUpInside" id="tbo-FM-eAb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -327,6 +327,7 @@
                         <outlet property="addExerciseButton" destination="KcW-Cc-bfv" id="8AT-df-dbN"/>
                         <outlet property="adminExerciseLabel" destination="oNG-49-Hd3" id="DUy-Ya-NPC"/>
                         <outlet property="collectionView" destination="a1P-EH-kR0" id="bvs-Fq-CLY"/>
+                        <segue destination="IVp-Yq-ARO" kind="show" identifier="adminAddExercise" id="gdf-pw-JNJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Pg-SR-C7s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -342,7 +343,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FKt-l5-URy">
-                                <rect key="frame" x="20" y="113" width="353" height="35"/>
+                                <rect key="frame" x="20" y="69" width="353" height="35"/>
                                 <color key="backgroundColor" red="0.69171362810000003" green="0.4979126988" blue="0.59299131159999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="ePf-4s-arS"/>
@@ -352,7 +353,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="89L-sn-hQ6">
-                                <rect key="frame" x="20" y="178" width="353" height="35"/>
+                                <rect key="frame" x="20" y="134" width="353" height="35"/>
                                 <color key="backgroundColor" red="0.69171362810000003" green="0.4979126988" blue="0.59299131159999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="aRz-s1-FH4"/>
@@ -362,7 +363,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DI7-LK-P3v">
-                                <rect key="frame" x="20" y="243" width="353" height="200"/>
+                                <rect key="frame" x="20" y="199" width="353" height="200"/>
                                 <color key="backgroundColor" red="0.82469318820000004" green="0.66858486770000003" blue="0.74221792519999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="hMz-Oh-7pB"/>
@@ -372,14 +373,14 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bpA-os-Bzh">
-                                <rect key="frame" x="20" y="463" width="240" height="140"/>
+                                <rect key="frame" x="20" y="419" width="240" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="U7Z-Qq-mRu"/>
                                     <constraint firstAttribute="height" constant="140" id="bp1-rE-iJk"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZKl-HT-UO7">
-                                <rect key="frame" x="280" y="503" width="90" height="66"/>
+                                <rect key="frame" x="280" y="459" width="90" height="66"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="UBe-h3-Cpa"/>
                                     <constraint firstAttribute="width" constant="90" id="oSE-A8-XAp"/>
@@ -393,7 +394,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNg-UI-Axe">
-                                <rect key="frame" x="110" y="653" width="173" height="35"/>
+                                <rect key="frame" x="110" y="609" width="173" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="qfI-LG-1XH"/>
                                 </constraints>
@@ -440,12 +441,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="53n-xw-syJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4202.2900763358775" y="321.83098591549299"/>
+            <point key="canvasLocation" x="5631" y="508"/>
         </scene>
-        <!--User Add Exercise View Controller-->
+        <!--Add Exercise View Controller-->
         <scene sceneID="15R-iv-BQS">
             <objects>
-                <viewController id="IVp-Yq-ARO" customClass="UserAddExerciseViewController" customModule="Assignment5CoreFitApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="IVp-Yq-ARO" customClass="AddExerciseViewController" customModule="Assignment5CoreFitApp" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qmV-re-jLD">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -551,7 +552,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hT7-GO-uwi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4244" y="1154"/>
+            <point key="canvasLocation" x="4764" y="1113"/>
         </scene>
         <!--User Add Workout Plan View Controller-->
         <scene sceneID="PpK-sE-HLT">
@@ -591,6 +592,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="0.6892307714" green="0.19066371839999999" blue="0.55956734789999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -620,6 +622,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="595-7c-2RN"/>
+                    <connections>
+                        <outlet property="addWorkoutPlanButton" destination="NL2-rH-ePf" id="ay4-5N-LCC"/>
+                        <outlet property="collectionView" destination="5Vq-MZ-Mvd" id="KgQ-8I-CLZ"/>
+                        <outlet property="workoutPlanNameTextField" destination="fAu-AL-SrI" id="bmo-68-wq6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Vy-V6-dNI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -710,7 +717,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add Workout Plan"/>
                                 <connections>
-                                    <segue destination="74W-Ko-rXx" kind="show" id="e8u-bb-sMJ"/>
+                                    <action selector="addWorkoutPlan:" destination="RKE-nK-yS9" eventType="touchUpInside" id="dqy-7B-reT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TWF-m8-qrQ">
@@ -723,7 +730,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add Exercise"/>
                                 <connections>
-                                    <segue destination="IVp-Yq-ARO" kind="show" id="Kat-xy-1Rg"/>
+                                    <action selector="addExerciseButtonTapped:" destination="RKE-nK-yS9" eventType="touchUpInside" id="856-LU-qV5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -750,6 +757,8 @@
                         <outlet property="addExerciseButton" destination="TWF-m8-qrQ" id="DcM-qZ-lDI"/>
                         <outlet property="addWorkoutPlanButton" destination="WNc-Hh-Ele" id="gtj-rE-u58"/>
                         <outlet property="collectionView" destination="66s-N8-Mez" id="2ao-By-NP3"/>
+                        <segue destination="IVp-Yq-ARO" kind="show" identifier="userAddExercise" id="GQd-5j-n2y"/>
+                        <segue destination="74W-Ko-rXx" kind="show" identifier="userAddWorkoutPlan" id="fDh-8v-wa6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QNd-Zj-mlK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -776,6 +785,9 @@
             <point key="canvasLocation" x="420.61068702290072" y="576.76056338028172"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gdf-pw-JNJ"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

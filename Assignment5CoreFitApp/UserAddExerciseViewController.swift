@@ -48,9 +48,9 @@ class UserAddExerciseViewController: UIViewController, UIImagePickerControllerDe
             return
         }
         
-        let exerciseModel = ExerciseModel(ownerUsername: (currentUser?.username)!, exerciseName: name, exerciseDescription: description, mediaPath: imagePath, muscleGroup: muscleGroup)
+        let exerciseModel = ExerciseModel(exerciseName: name, exerciseDescription: description, mediaPath: imagePath, muscleGroup: muscleGroup)
         
-        let success = DBManager.shared.addExercise(exercise: exerciseModel)
+        let success = DBManager.shared.addExercise(exercise: exerciseModel, user: self.currentUser!)
         if success {
             showAlert(message: "Exercise added successfully.")
         } else {

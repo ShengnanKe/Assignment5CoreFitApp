@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
             print("Login successful for user: \(user.username ?? "Unknown")")
 
             let segueIdentifier = user.isAdmin ? "showAdminExerciseList" : "showUserExerciseList"
-            performSegue(withIdentifier: segueIdentifier, sender: self)  // Pass 'self' as sender
+            performSegue(withIdentifier: segueIdentifier, sender: currentUser)
         } else {
             showAlert(message: "Invalid username or password.")
         }
@@ -49,13 +49,15 @@ class LoginViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showUserExerciseList",
-           let destinationVC = segue.destination as? UserAddExerciseViewController {
-            destinationVC.currentUser = self.currentUser
+        if segue.identifier == "showUserExerciseList" {
+            if let destinationVC = segue.destination as? UserExerciseListViewController, let data = sender as? User {
+                destinationVC.currentUser = data
+            }
+            // destinationVC.currentUser = self.currentUser
         } else if segue.identifier == "showAdminExerciseList",
-                  let destinationVC = segue.destination as? AdminExerciseListViewController {
-            destinationVC.currentUser = self.currentUser
+                  let destinationVC = segue.destination as? AdminExerciseListViewController ,let data = sender as? User {
+            destinationVC.currentUser = data
         }
     }
-
+    
 }

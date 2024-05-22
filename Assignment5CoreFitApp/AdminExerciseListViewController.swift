@@ -20,6 +20,10 @@ class AdminExerciseListViewController: UIViewController, UICollectionViewDelegat
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        //loadAdminExercises()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         loadAdminExercises()
     }
     
@@ -42,7 +46,25 @@ class AdminExerciseListViewController: UIViewController, UICollectionViewDelegat
         return cell
     }
     
+    @IBAction func addExerciseButtonTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "adminAddExercise", sender: currentUser)
+    }
+    
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "adminAddExercise" {
+            if let destinationVC = segue.destination as? AddExerciseViewController, let data = sender as? User {
+                destinationVC.currentUser = data
+            }
+        }
     }
 }

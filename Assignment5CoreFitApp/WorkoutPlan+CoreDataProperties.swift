@@ -2,7 +2,7 @@
 //  WorkoutPlan+CoreDataProperties.swift
 //  Assignment5CoreFitApp
 //
-//  Created by KKNANXX on 5/21/24.
+//  Created by KKNANXX on 5/22/24.
 //
 //
 

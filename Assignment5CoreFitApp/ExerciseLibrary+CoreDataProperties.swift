@@ -2,7 +2,7 @@
 //  ExerciseLibrary+CoreDataProperties.swift
 //  Assignment5CoreFitApp
 //
-//  Created by KKNANXX on 5/21/24.
+//  Created by KKNANXX on 5/22/24.
 //
 //
 
@@ -20,7 +20,6 @@ extension ExerciseLibrary {
     @NSManaged public var exerciseName: String?
     @NSManaged public var mediaPath: String?
     @NSManaged public var muscleGroup: String?
-    @NSManaged public var ownerUsername: String?
     @NSManaged public var belongsToWorkoutPlans: NSSet?
     @NSManaged public var createdByUser: User?
 

@@ -1,17 +1,18 @@
 //
-//  AdminAddExerciseViewController.swift
+//  AddExerciseViewController.swift
 //  Assignment5CoreFitApp
 //
-//  Created by KKNANXX on 5/21/24.
+//  Created by KKNANXX on 5/22/24.
 //
 
 import UIKit
 import CoreData
 
-class AdminAddExerciseViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddExerciseViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var muscleGroupTextField: UITextField!
+    //@IBOutlet weak var addExerciseDescriptionLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var chooseImageButton: UIButton!
     @IBOutlet weak var exerciseImageView: UIImageView!
@@ -19,14 +20,23 @@ class AdminAddExerciseViewController: UIViewController, UIImagePickerControllerD
     
     let imagePicker = UIImagePickerController()
     var selectedImagePath: String?
+    
     var currentUser: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTextField.placeholder = "Admin Enter Exercise Name: "
+        nameTextField.placeholder = "User Enter Exercise Name: "
         muscleGroupTextField.placeholder = "Enter Muscle Group Name: "
         
         imagePicker.delegate = self
+        
+        if let user = currentUser {
+            print("Current user's username is: \(user.username ?? "something wrong")")
+            
+        } else {
+            print("No current user found")
+            
+        }
     }
     
     @IBAction func addExerciseButtonTapped(_ sender: UIButton) {
@@ -38,7 +48,6 @@ class AdminAddExerciseViewController: UIViewController, UIImagePickerControllerD
             return
         }
         
-        // Set ownerUsername to "admin"
         let exerciseModel = ExerciseModel(exerciseName: name, exerciseDescription: description, mediaPath: imagePath, muscleGroup: muscleGroup)
         
         let success = DBManager.shared.addExercise(exercise: exerciseModel, user: self.currentUser!)
@@ -60,6 +69,7 @@ class AdminAddExerciseViewController: UIViewController, UIImagePickerControllerD
         exerciseImageView.image = image
         
         selectedImagePath = saveImageAndGetPath(image: image)
+        // when image selected change the button text
         chooseImageButton.setTitle("Image Selected", for: .normal)
     }
     

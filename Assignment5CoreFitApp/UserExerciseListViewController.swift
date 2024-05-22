@@ -26,22 +26,23 @@ class UserExerciseListViewController: UIViewController, UICollectionViewDelegate
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedContext = appDelegate.persistentContainer.viewContext
         
+        //print(currentUser) 可以了
+        
+        //loadExercises()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         loadExercises()
     }
 
     func loadExercises() {
         exercises.removeAll()  // Clear the current list of exercises
         
+        // show this current user created exercises
         if let userExercises = currentUser?.createdExercises?.allObjects as? [ExerciseLibrary] {
             exercises.append(contentsOf: userExercises)
         }
-
-        if let adminUser = currentUser?.managedObjectContext?.registeredObjects.first(where: {
-            ($0 as? User)?.username == "admin"
-        }) as? User, let adminExercises = adminUser.createdExercises?.allObjects as? [ExerciseLibrary] {
-            exercises.append(contentsOf: adminExercises)
-        }
-
+        
         collectionView.reloadData()
     }
 
@@ -56,5 +57,32 @@ class UserExerciseListViewController: UIViewController, UICollectionViewDelegate
         let exercise = exercises[indexPath.row]
         cell.configure(with: exercise)
         return cell
+    }
+    
+    @IBAction func addExerciseButtonTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "userAddExercise", sender: currentUser)
+    }
+    
+    @IBAction func addWorkoutPlan(_ sender: UIButton) {
+        performSegue(withIdentifier: "userAddWorkoutPlan", sender: currentUser)
+    }
+    
+    
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "userAddExercise" {
+            if let destinationVC = segue.destination as? AddExerciseViewController, let data = sender as? User {
+                destinationVC.currentUser = data
+            }
+        } else if segue.identifier == "userAddWorkoutPlan"{
+            if let destinationVC = segue.destination as? UserAddWorkoutPlanViewController, let data = sender as? User {
+                destinationVC.currentUser = data
+            }
+        }
     }
 }
