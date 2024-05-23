@@ -9,5 +9,7 @@ import Foundation
 
 
 struct WorkoutPlanModel {
+    
     let name: String
+    
 }

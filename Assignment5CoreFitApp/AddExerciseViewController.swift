@@ -61,7 +61,6 @@ class AddExerciseViewController: UIViewController, UIImagePickerControllerDelega
         exerciseImageView.image = image
     }
  
- 
     @IBAction func addOrUpdateExerciseButtonTapped(_ sender: UIButton) {
         guard let name = nameTextField.text, !name.isEmpty,
               let muscleGroup = muscleGroupTextField.text, !muscleGroup.isEmpty,
@@ -103,7 +102,6 @@ class AddExerciseViewController: UIViewController, UIImagePickerControllerDelega
         exerciseImageView.image = image
         
         selectedImagePath = saveImageAndGetPath(image: image)
-        // when image selected change the button text
         chooseImageButton.setTitle("Image Selected", for: .normal)
     }
     

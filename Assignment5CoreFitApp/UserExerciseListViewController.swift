@@ -100,12 +100,10 @@ class UserExerciseListViewController: UIViewController, UITableViewDelegate, UIT
         if segue.identifier == "userAddExercise" {
             guard let destinationVC = segue.destination as? AddExerciseViewController else { return }
             
-            if let user = sender as? User {
-                // Setup for adding a new exercise
+            if let user = sender as? User { // or adding a new exercise
                 destinationVC.currentUser = user
                 destinationVC.isEditingExercise = false
-            } else if let index = sender as? Int {
-                // Setup for editing an existing exercise
+            } else if let index = sender as? Int { // for editing existing exercise
                 destinationVC.exerciseToEdit = exercises[index]
                 destinationVC.currentUser = currentUser
                 destinationVC.isEditingExercise = true

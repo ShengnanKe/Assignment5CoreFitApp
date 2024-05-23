@@ -53,11 +53,9 @@ class LoginViewController: UIViewController {
             if let destinationVC = segue.destination as? UserExerciseListViewController, let data = sender as? User {
                 destinationVC.currentUser = data
             }
-            // destinationVC.currentUser = self.currentUser
         } else if segue.identifier == "showAdminExerciseList",
                   let destinationVC = segue.destination as? AdminExerciseListViewController ,let data = sender as? User {
             destinationVC.currentUser = data
         }
     }
-    
 }

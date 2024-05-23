@@ -40,7 +40,6 @@ class AdminExerciseListViewController: UIViewController, UITableViewDelegate, UI
         }
     }
     
-    // UITableView DataSource methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exercises.count
     }
@@ -88,10 +87,10 @@ class AdminExerciseListViewController: UIViewController, UITableViewDelegate, UI
         performSegue(withIdentifier: "adminAddExercise", sender: currentUser)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // to see details of this exercise -> view only
-        performSegue(withIdentifier: "adminAddExercise", sender: indexPath.row)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        // to see details of this exercise -> view only
+//        performSegue(withIdentifier: "adminAddExercise", sender: indexPath.row)
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "adminAddExercise" {

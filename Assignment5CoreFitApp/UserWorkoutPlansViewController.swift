@@ -112,11 +112,11 @@ class UserWorkoutPlansViewController: UIViewController, UITableViewDataSource, U
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // view details of the existing workplan
-        let workoutPlan = workoutPlans[indexPath.row]
-        performSegue(withIdentifier: "userAddWorkoutPlans", sender: workoutPlan)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        // view details of the existing workplan
+//        let workoutPlan = workoutPlans[indexPath.row]
+//        performSegue(withIdentifier: "userAddWorkoutPlans", sender: workoutPlan)
+//    }
     
     func showAlert(message: String) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
