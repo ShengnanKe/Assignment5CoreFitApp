@@ -12,9 +12,10 @@ import CoreData
 class AdminExerciseListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var adminExerciseLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!  // Changed from collectionView
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addExerciseButton: UIButton!
     
+    var managedContext: NSManagedObjectContext!
     var exercises: [ExerciseLibrary] = []
     var currentUser: User?
     
@@ -52,20 +53,61 @@ class AdminExerciseListViewController: UIViewController, UITableViewDelegate, UI
         return cell
     }
     
-    // Optional: UITableView Delegate method for handling row selection
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Handle selection if needed
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true  // Allows the row to be editable
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+            self.deleteExercise(at: indexPath)
+            completionHandler(true)
+        }
+
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { action, view, completionHandler in
+            self.performSegue(withIdentifier: "adminAddExercise", sender: indexPath.row)
+            completionHandler(true)
+        }
+
+        editAction.backgroundColor = .blue
+
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+    }
+    
+    func deleteExercise(at indexPath: IndexPath) {
+        let exerciseToDelete = exercises[indexPath.row]
+        let success = DBManager.shared.deleteExercise(exercise: exerciseToDelete)
+        if success {
+            exercises.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        } else {
+            print("Failed to delete the exercise from the database.")
+        }
     }
     
     @IBAction func addExerciseButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "adminAddExercise", sender: currentUser)
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // to see details of this exercise -> view only
+        performSegue(withIdentifier: "adminAddExercise", sender: indexPath.row)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "adminAddExercise" {
-            if let destinationVC = segue.destination as? AddExerciseViewController, let user = sender as? User {
+            guard let destinationVC = segue.destination as? AddExerciseViewController else { return }
+            
+            if let user = sender as? User {
+                // Setting up for adding a new exercise
                 destinationVC.currentUser = user
+                destinationVC.isEditingExercise = false
+            } else if let index = sender as? Int {
+                // Setting up for editing an existing exercise
+                destinationVC.exerciseToEdit = exercises[index]
+                destinationVC.currentUser = currentUser
+                destinationVC.isEditingExercise = true
             }
         }
     }
+    
 }

@@ -12,7 +12,9 @@ class UserAddWorkoutPlanViewController: UIViewController, UICollectionViewDelega
     var currentUser: User?
     var exercises: [ExerciseLibrary] = []
     var selectedExercises: Set<ExerciseLibrary> = []
-
+    
+    var isEditingWorkoutPlan: Bool = false
+    var workoutPlan: WorkoutPlan?
 
     @IBOutlet weak var workoutPlanNameTextField: UITextField!
     @IBOutlet weak var addWorkoutPlanButton: UIButton!
@@ -21,8 +23,9 @@ class UserAddWorkoutPlanViewController: UIViewController, UICollectionViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // for layout set up
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 200, height: 150)
+        layout.itemSize = CGSize(width: 150, height: 150)
         layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 10
         collectionView.collectionViewLayout = layout
@@ -39,10 +42,27 @@ class UserAddWorkoutPlanViewController: UIViewController, UICollectionViewDelega
         } else {
             print("UserAddWorkoutPlanViewController: No current user found")
         }
+        
+        configureViewForMode()
+    }
+    
+    private func configureViewForMode() {
+        if isEditingWorkoutPlan, let plan = workoutPlan {
+            // for editing an existing workout plan
+            workoutPlanNameTextField.text = plan.name
+            selectedExercises = Set(plan.hasExercises?.allObjects as? [ExerciseLibrary] ?? [])
+            addWorkoutPlanButton.setTitle("Update Workout Plan", for: .normal)
+        } else {
+            // for adding a new workout plan
+            workoutPlanNameTextField.text = ""
+            selectedExercises.removeAll()
+            addWorkoutPlanButton.setTitle("Add Workout Plan", for: .normal)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadExercises()
+        collectionView.reloadData()
     }
     
     func loadExercises(){ // load all admin exercises and userdefined exercise
@@ -62,9 +82,7 @@ class UserAddWorkoutPlanViewController: UIViewController, UICollectionViewDelega
         } else {
             print("No current user found")
         }
-        
-        // need to add admin defined exercise here too
-        
+
         collectionView.reloadData()
         
     }
@@ -77,8 +95,18 @@ class UserAddWorkoutPlanViewController: UIViewController, UICollectionViewDelega
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WorkoutPlanExerciseCell", for: indexPath) as? WorkoutPlanExerciseCollectionViewCell else {
             fatalError("Unable to dequeue WorkoutPlanExerciseCollectionViewCell")
         }
-        cell.configure(with: exercises[indexPath.row])
-        cell.isSelected = selectedExercises.contains(exercises[indexPath.row])
+        let exercise = exercises[indexPath.row]
+        cell.configure(with: exercise)
+        
+        //cell.isSelected = selectedExercises.contains(exercises[indexPath.row])
+        
+        if selectedExercises.contains(exercise) {
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            cell.isSelected = true
+        } else {
+            collectionView.deselectItem(at: indexPath, animated: false)
+            cell.isSelected = false
+        }
         return cell
     }
     
@@ -104,14 +132,24 @@ class UserAddWorkoutPlanViewController: UIViewController, UICollectionViewDelega
             return
         }
         
-        let workoutPlanModel = WorkoutPlanModel(name: workoutPlanName)
-        
-        let success = DBManager.shared.addWorkoutPlan(workoutPlan: workoutPlanModel, user: self.currentUser!, exercises: Array(selectedExercises))
-        
-        if success {
-            showAlert(message: "Workout plan added successfully.")
-        } else {
-            showAlert(message: "Failed to add workout plan.")
+        if isEditingWorkoutPlan {  // Editing an existing workout plan
+            guard let plan = workoutPlan else { return }
+            plan.name = workoutPlanName
+            plan.hasExercises = NSSet(array: Array(selectedExercises))
+            
+            let success = DBManager.shared.saveData()
+            if success {
+                showAlert(message: "Workout plan updated successfully.")
+            } else {
+                showAlert(message: "Failed to update workout plan.")
+            }
+        } else {  // Adding a new workout plan
+            let success = DBManager.shared.addWorkoutPlan(workoutPlan: WorkoutPlanModel(name: workoutPlanName), user: currentUser!, exercises: Array(selectedExercises))
+            if success {
+                showAlert(message: "Workout plan added successfully.")
+            } else {
+                showAlert(message: "Failed to add workout plan.")
+            }
         }
     }
     

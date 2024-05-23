@@ -90,6 +90,18 @@ class DBManager: NSObject {
         return saveData()
     }
     
+    func deleteExercise(exercise: ExerciseLibrary) -> Bool {
+        managedContext.delete(exercise)
+        do {
+            try managedContext.save()
+            print("Exercise successfully deleted.")
+            return true
+        } catch let error as NSError {
+            print("Error while deleting exercise: \(error), \(error.userInfo)")
+            return false
+        }
+    }
+    
     func addWorkoutPlan(workoutPlan: WorkoutPlanModel, user: User, exercises: [ExerciseLibrary]) -> Bool{
         guard let entity = NSEntityDescription.entity(forEntityName: "WorkoutPlan", in: managedContext) else {
             print("Failed to create entity description for WorkoutPlan")
@@ -120,5 +132,27 @@ class DBManager: NSObject {
         }
         return nil
     }
+    
+    func deleteWorkoutPlan(workoutPlan: WorkoutPlan) -> Bool {
+        managedContext.delete(workoutPlan)
+        do {
+            try managedContext.save()
+            return true
+        } catch let error as NSError {
+            print("Error deleting workout plan: \(error), \(error.userInfo)")
+            return false
+        }
+    }
+    
+//    func updateWorkoutPlan(workoutPlan: WorkoutPlan) -> Bool {
+//        do {
+//            try managedContext.save()
+//            print("Workout plan updated successfully!")
+//            return true
+//        } catch let error as NSError {
+//            print("Failed to update workout plan: \(error), \(error.userInfo)")
+//            return false
+//        }
+//    }
     
 }

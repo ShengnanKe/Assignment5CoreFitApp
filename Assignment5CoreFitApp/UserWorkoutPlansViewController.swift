@@ -67,19 +67,15 @@ class UserWorkoutPlansViewController: UIViewController, UITableViewDataSource, U
     @IBAction func addWorkoutPlanButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "userAddWorkoutPlans", sender: currentUser)
     }
-    
-    
-    
+ 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editAction = UIContextualAction(style: .normal, title: "Edit") { action, view, completionHandler in
-            
-            self.editWorkoutPlan(at: indexPath)
+            self.performSegue(withIdentifier: "userAddWorkoutPlans", sender: indexPath.row)
             completionHandler(true)
         }
         editAction.backgroundColor = .blue
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
-            // Handle delete logic here
             self.deleteWorkoutPlan(at: indexPath)
             completionHandler(true)
         }
@@ -87,28 +83,44 @@ class UserWorkoutPlansViewController: UIViewController, UITableViewDataSource, U
         return UISwipeActionsConfiguration(actions: [editAction, deleteAction])
     }
     
-    func editWorkoutPlan(at indexPath: IndexPath) {
-        // Implement the editing of the workout plan
-    }
-    
     func deleteWorkoutPlan(at indexPath: IndexPath) {
         let workoutPlan = workoutPlans[indexPath.row]
-        managedContext.delete(workoutPlan)
-        
-        do {
-            try managedContext.save()
+        let success = DBManager.shared.deleteWorkoutPlan(workoutPlan: workoutPlan)
+        if success {
             workoutPlans.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } catch let error as NSError {
-            print("Could not delete. \(error), \(error.userInfo)")
+            showAlert(message: "Workout plan deleted successfully.")
+        } else {
+            showAlert(message: "Failed to delete workout plan.")
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "userAddWorkoutPlans" {
-            if let destinationVC = segue.destination as? UserAddWorkoutPlanViewController, let data = sender as? User {
-                destinationVC.currentUser = data
+            guard let destinationVC = segue.destination as? UserAddWorkoutPlanViewController else { return }
+            
+            if let index = sender as? Int {
+                // Editing workout plan
+                destinationVC.workoutPlan = workoutPlans[index]
+                destinationVC.isEditingWorkoutPlan = true
+                destinationVC.currentUser = currentUser
+            } else if sender is User {
+                // Adding a new workout plan
+                destinationVC.isEditingWorkoutPlan = false
+                destinationVC.currentUser = currentUser
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // view details of the existing workplan
+        let workoutPlan = workoutPlans[indexPath.row]
+        performSegue(withIdentifier: "userAddWorkoutPlans", sender: workoutPlan)
+    }
+    
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
     }
 }

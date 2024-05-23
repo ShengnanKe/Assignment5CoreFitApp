@@ -506,7 +506,7 @@
                                     <color key="baseBackgroundColor" red="0.69171362810000003" green="0.4979126988" blue="0.59299131159999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="addExerciseButtonTapped:" destination="IVp-Yq-ARO" eventType="touchUpInside" id="Ku6-qn-ZRD"/>
+                                    <action selector="addOrUpdateExerciseButtonTapped:" destination="IVp-Yq-ARO" eventType="touchUpInside" id="lSb-ho-uHP"/>
                                 </connections>
                             </button>
                         </subviews>

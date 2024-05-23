@@ -12,7 +12,6 @@ class AddExerciseViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var muscleGroupTextField: UITextField!
-    //@IBOutlet weak var addExerciseDescriptionLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var chooseImageButton: UIButton!
     @IBOutlet weak var exerciseImageView: UIImageView!
@@ -22,6 +21,8 @@ class AddExerciseViewController: UIViewController, UIImagePickerControllerDelega
     var selectedImagePath: String?
     
     var currentUser: User?
+    var isEditingExercise: Bool = false // is for adding new exercise or for editing
+    var exerciseToEdit: ExerciseLibrary?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,31 +31,64 @@ class AddExerciseViewController: UIViewController, UIImagePickerControllerDelega
         
         imagePicker.delegate = self
         
-        if let user = currentUser {
-            print("Current user's username is: \(user.username ?? "something wrong")")
-            
+        configureViewForMode()
+    }
+    
+    private func configureViewForMode() {
+        if isEditingExercise, let exercise = exerciseToEdit {
+            // for editing
+            nameTextField.text = exercise.exerciseName
+            muscleGroupTextField.text = exercise.muscleGroup
+            descriptionTextView.text = exercise.exerciseDescription
+            loadExistingImage(from: exercise.mediaPath)
+            addExerciseButton.setTitle("Update Exercise", for: .normal)
         } else {
-            print("No current user found")
-            
+            // for adding new exercise
+            nameTextField.text = ""
+            muscleGroupTextField.text = ""
+            descriptionTextView.text = ""
+            exerciseImageView.image = nil
+            addExerciseButton.setTitle("Add Exercise", for: .normal)
         }
     }
     
-    @IBAction func addExerciseButtonTapped(_ sender: UIButton) {
+    private func loadExistingImage(from path: String?) {
+        guard let imagePath = path, !imagePath.isEmpty,
+              let image = UIImage(contentsOfFile: getDocumentsDirectory().appendingPathComponent(imagePath).path) else {
+            exerciseImageView.image = UIImage(named: "default-placeholder")
+            return
+        }
+        exerciseImageView.image = image
+    }
+ 
+ 
+    @IBAction func addOrUpdateExerciseButtonTapped(_ sender: UIButton) {
         guard let name = nameTextField.text, !name.isEmpty,
               let muscleGroup = muscleGroupTextField.text, !muscleGroup.isEmpty,
-              let description = descriptionTextView.text, !description.isEmpty,
-              let imagePath = selectedImagePath, !imagePath.isEmpty else {
-            showAlert(message: "Please fill out all fields and select an image.")
+              let description = descriptionTextView.text, !description.isEmpty else {
+            showAlert(message: "Please fill out all fields.")
             return
         }
         
-        let exerciseModel = ExerciseModel(exerciseName: name, exerciseDescription: description, mediaPath: imagePath, muscleGroup: muscleGroup)
-        
-        let success = DBManager.shared.addExercise(exercise: exerciseModel, user: self.currentUser!)
-        if success {
-            showAlert(message: "Exercise added successfully.")
+        let imagePath = selectedImagePath ?? exerciseToEdit?.mediaPath ?? "default/path"
+
+        if let exercise = exerciseToEdit {
+            // Update existing exercise
+            exercise.exerciseName = name
+            exercise.exerciseDescription = description
+            exercise.mediaPath = imagePath
+            exercise.muscleGroup = muscleGroup
         } else {
-            showAlert(message: "Failed to add exercise.")
+            // Create new exercise
+            let newExercise = ExerciseModel(exerciseName: name, exerciseDescription: description, mediaPath: imagePath, muscleGroup: muscleGroup)
+            let success = DBManager.shared.addExercise(exercise: newExercise, user: self.currentUser!)
+        }
+        
+        let success = DBManager.shared.saveData()
+        if success {
+            showAlert(message: "Exercise \(exerciseToEdit != nil ? "updated" : "added") successfully.")
+        } else {
+            showAlert(message: "Failed to \(exerciseToEdit != nil ? "update" : "add") exercise.")
         }
     }
     
@@ -82,7 +116,7 @@ class AddExerciseViewController: UIViewController, UIImagePickerControllerDelega
             return "default/path"
         }
         
-        let fileManager = FileManager.default
+        //let fileManager = FileManager.default
         let docDirectory = getDocumentsDirectory()
         
         let fileName = "\(UUID().uuidString).jpg"

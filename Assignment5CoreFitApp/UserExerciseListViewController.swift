@@ -15,7 +15,6 @@ class UserExerciseListViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var addWorkoutPlanButton: UIButton!
     
     var exercises: [ExerciseLibrary] = []
-    var managedContext: NSManagedObjectContext!
     var currentUser: User?
 
     override func viewDidLoad() {
@@ -25,8 +24,6 @@ class UserExerciseListViewController: UIViewController, UITableViewDelegate, UIT
         
         tableView.rowHeight = 100
         
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        managedContext = appDelegate.persistentContainer.viewContext
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +52,36 @@ class UserExerciseListViewController: UIViewController, UITableViewDelegate, UIT
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+            self.deleteExercise(at: indexPath)
+            completionHandler(true)
+        }
+        
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { action, view, completionHandler in
+            self.performSegue(withIdentifier: "userAddExercise", sender: indexPath.row)
+            completionHandler(true)
+        }
+        editAction.backgroundColor = .blue
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+    }
+    
+    func deleteExercise(at indexPath: IndexPath) {
+        let exerciseToDelete = exercises[indexPath.row]
+        let success = DBManager.shared.deleteExercise(exercise: exerciseToDelete)
+        if success {
+            exercises.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        } else {
+            showAlert(message: "Failed to delete the exercise.")
+        }
+    }
+    
     @IBAction func addExerciseButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "userAddExercise", sender: currentUser)
     }
@@ -71,8 +98,17 @@ class UserExerciseListViewController: UIViewController, UITableViewDelegate, UIT
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "userAddExercise" {
-            if let destinationVC = segue.destination as? AddExerciseViewController, let data = sender as? User {
-                destinationVC.currentUser = data
+            guard let destinationVC = segue.destination as? AddExerciseViewController else { return }
+            
+            if let user = sender as? User {
+                // Setup for adding a new exercise
+                destinationVC.currentUser = user
+                destinationVC.isEditingExercise = false
+            } else if let index = sender as? Int {
+                // Setup for editing an existing exercise
+                destinationVC.exerciseToEdit = exercises[index]
+                destinationVC.currentUser = currentUser
+                destinationVC.isEditingExercise = true
             }
         } else if segue.identifier == "showUserWorkoutPlans"{
             if let destinationVC = segue.destination as? UserWorkoutPlansViewController, let data = sender as? User {
