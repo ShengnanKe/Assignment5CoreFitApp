@@ -545,7 +545,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hT7-GO-uwi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4268" y="1154"/>
+            <point key="canvasLocation" x="4492" y="1064"/>
         </scene>
         <!--User Workout Plans View Controller-->
         <scene sceneID="gXQ-wL-JF9">

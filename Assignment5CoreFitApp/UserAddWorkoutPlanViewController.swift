@@ -36,12 +36,12 @@ class UserAddWorkoutPlanViewController: UIViewController, UICollectionViewDelega
         collectionView.dataSource = self
         collectionView.allowsMultipleSelection = true
         
-        if let user = currentUser {
-            print("Current user's username is: \(user.username ?? "something wrong")")
-            
-        } else {
-            print("UserAddWorkoutPlanViewController: No current user found")
-        }
+//        if let user = currentUser {
+//            print("Current user's username is: \(user.username ?? "something wrong")")
+//            
+//        } else {
+//            print("UserAddWorkoutPlanViewController: No current user found")
+//        }
         
         configureViewForMode()
     }
