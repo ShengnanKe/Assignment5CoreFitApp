@@ -17,4 +17,14 @@ class AdminExerciseCollectionViewCell: UICollectionViewCell {
         muscleGroupLabel.text = exercise.muscleGroup
     }
     
+//    @IBOutlet weak var imageView: UIImageView!
+//    @IBOutlet weak var exerciseNameLabel: UILabel!
+    
+//    func configure(with exercise: ExerciseLibrary) {
+//        exerciseNameLabel.text = exercise.exerciseName
+//        if let imagePath = exercise.imagePath, let image = UIImage(named: imagePath) {
+//            imageView.image = image
+//        }
+//    }
+    
 }

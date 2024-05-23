@@ -90,7 +90,7 @@ class DBManager: NSObject {
         return saveData()
     }
     
-    func addWorkoutPlan(workoutPlan: WorkoutPlanModel, user: User, exercises: [Exercise])-> Bool{
+    func addWorkoutPlan(workoutPlan: WorkoutPlanModel, user: User, exercises: [ExerciseLibrary]) -> Bool{
         guard let entity = NSEntityDescription.entity(forEntityName: "WorkoutPlan", in: managedContext) else {
             print("Failed to create entity description for WorkoutPlan")
             return false
@@ -107,5 +107,18 @@ class DBManager: NSObject {
         
         return saveData()
     }
-
+    
+    func preloadAdminExercises() -> [NSManagedObject]? {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = ExerciseLibrary.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "createdByUser.isAdmin == %@", NSNumber(value: true))
+        
+        do {
+            var adminExercises = try managedContext.fetch(fetchRequest) as? [NSManagedObject]
+            return adminExercises
+        } catch {
+            print("Failed to fetch admin exercises: \(error)")
+        }
+        return nil
+    }
+    
 }

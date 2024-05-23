@@ -20,6 +20,13 @@ class UserExerciseListViewController: UIViewController, UICollectionViewDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 200, height: 120)
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
+        collectionView.collectionViewLayout = layout
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -64,7 +71,7 @@ class UserExerciseListViewController: UIViewController, UICollectionViewDelegate
     }
     
     @IBAction func addWorkoutPlan(_ sender: UIButton) {
-        performSegue(withIdentifier: "userAddWorkoutPlan", sender: currentUser)
+        performSegue(withIdentifier: "showUserWorkoutPlans", sender: currentUser)
     }
     
     
@@ -79,8 +86,8 @@ class UserExerciseListViewController: UIViewController, UICollectionViewDelegate
             if let destinationVC = segue.destination as? AddExerciseViewController, let data = sender as? User {
                 destinationVC.currentUser = data
             }
-        } else if segue.identifier == "userAddWorkoutPlan"{
-            if let destinationVC = segue.destination as? UserAddWorkoutPlanViewController, let data = sender as? User {
+        } else if segue.identifier == "showUserWorkoutPlans"{
+            if let destinationVC = segue.destination as? UserWorkoutPlansViewController, let data = sender as? User {
                 destinationVC.currentUser = data
             }
         }

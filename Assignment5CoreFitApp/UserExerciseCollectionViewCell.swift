@@ -13,7 +13,7 @@ class UserExerciseCollectionViewCell: UICollectionViewCell {
     
     func configure(with exercise: ExerciseLibrary) {
         nameLabel.text = exercise.exerciseName
-        detailLabel.text = "Muscle group: \(exercise.muscleGroup ?? "N/A")"
+        detailLabel.text = exercise.muscleGroup
     }
     
 }

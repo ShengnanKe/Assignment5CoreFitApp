@@ -18,9 +18,15 @@ class AdminExerciseListViewController: UIViewController, UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 120, height: 120)
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10  
+        collectionView.collectionViewLayout = layout
+        
         collectionView.delegate = self
         collectionView.dataSource = self
-        //loadAdminExercises()
     }
     
     override func viewWillAppear(_ animated: Bool) {
