@@ -144,15 +144,4 @@ class DBManager: NSObject {
         }
     }
     
-//    func updateWorkoutPlan(workoutPlan: WorkoutPlan) -> Bool {
-//        do {
-//            try managedContext.save()
-//            print("Workout plan updated successfully!")
-//            return true
-//        } catch let error as NSError {
-//            print("Failed to update workout plan: \(error), \(error.userInfo)")
-//            return false
-//        }
-//    }
-    
 }
