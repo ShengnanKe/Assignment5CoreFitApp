@@ -8,9 +8,9 @@
 import UIKit
 import CoreData
 
-class UserExerciseListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class UserExerciseListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addExerciseButton: UIButton!
     @IBOutlet weak var addWorkoutPlanButton: UIButton!
     
@@ -20,46 +20,35 @@ class UserExerciseListViewController: UIViewController, UICollectionViewDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 200, height: 120)
-        layout.minimumInteritemSpacing = 10
-        layout.minimumLineSpacing = 10
-        collectionView.collectionViewLayout = layout
+        tableView.rowHeight = 100
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        managedContext = appDelegate.persistentContainer.viewContext
-        
-        //print(currentUser) 可以了
-        
-        //loadExercises()
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        managedContext = appDelegate.persistentContainer.viewContext
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadExercises()
     }
 
     func loadExercises() {
-        exercises.removeAll()  // Clear the current list of exercises
-        
-        // show this current user created exercises
+        exercises.removeAll()
         if let userExercises = currentUser?.createdExercises?.allObjects as? [ExerciseLibrary] {
             exercises.append(contentsOf: userExercises)
         }
-        
-        collectionView.reloadData()
+        tableView.reloadData()
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return exercises.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserExerciseCell", for: indexPath) as? UserExerciseCollectionViewCell else {
-            fatalError("Unable to dequeue UserExerciseCollectionViewCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserExerciseCell", for: indexPath) as? UserExerciseTableViewCell else {
+            fatalError("Unable to dequeue UserExerciseTableViewCell")
         }
         let exercise = exercises[indexPath.row]
         cell.configure(with: exercise)
@@ -74,13 +63,12 @@ class UserExerciseListViewController: UIViewController, UICollectionViewDelegate
         performSegue(withIdentifier: "showUserWorkoutPlans", sender: currentUser)
     }
     
-    
     func showAlert(message: String) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertController, animated: true, completion: nil)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "userAddExercise" {
             if let destinationVC = segue.destination as? AddExerciseViewController, let data = sender as? User {
